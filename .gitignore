@@ -1,0 +1,14 @@
+__pycache__/
+*.log
+*.aux
+*.gtex
+*.glog
+*.gaux
+*.idx
+*.ilg
+*.ind
+*.gz
+*.out
+*.toc
+*.synctex(busy)
+*.gz(busy)
