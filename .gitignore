@@ -12,3 +12,5 @@ __pycache__/
 *.toc
 *.synctex(busy)
 *.gz(busy)
+psalmi_fr/
+psalmi_la/
