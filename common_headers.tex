@@ -1,0 +1,332 @@
+%%%%%%%%%%%%%%% INDICES %%%%%%%%%%%%%%%
+
+\usepackage{imakeidx}
+
+%% This is deep magic required to make dotted_mode.ist work.
+%% Found in https://tex.stackexchange.com/questions/594568/how-to-integrate-a-tabular-environment-in-the-index
+\setlength{\columnseprule}{0.4pt}
+\newsavebox\ltmcbox
+\newlength\mysavecolroom
+%% This is added before automatically-inserted instances of \\ in longtable-based indices in order to ignore those
+\newcommand{\ignoreNL}[1]{} 
+%% This is a special macro to be used for explicit newlines
+%% inside indices where a tabular is used,
+%% which are indices where the mode is printed,
+%% to be used in the indexed value (i.e. the piece's title)
+\newcommand{\idxnewline}{\newline\null\hspace{4mm}}
+%% a simple newline\null can be added if it is at the end of the title.
+
+\indexsetup{level=\section*,toclevel=section,noclearpage,othercode=\footnotesize\thispagestyle{empty}}
+
+\makeindex[name=A,title=Antiennes, columns=2,columnseprule, options=-s dotted_mode.ist]
+\makeindex[name=H,title=Hymnes, columns=2,columnseprule, options=-s dotted_thinmode.ist]
+\makeindex[name=R,title=Répons brefs, columns=2,columnseprule, options=-s dotted.ist]
+\makeindex[name=P,title=Psaumes, columns=2,columnseprule, options=-s dotted.ist]
+\makeindex[name=C,title=Cantiques, columns=2,columnseprule, options=-s dotted.ist]
+
+%%%%%%%%%%%%%%% GEOMETRY %%%%%%%%%%%%%%%
+
+%KDP 6inx9in sans fonds perdus
+\usepackage[paperwidth=6in, paperheight=9in]{geometry}
+
+\geometry{
+inner=25mm,
+outer=14mm,
+top=14mm,
+bottom=14mm,
+headsep=3mm,
+}
+
+%%%%%%%%%%%%%%% STANDARD PACKAGES %%%%%%%%%%%%%%%
+
+\usepackage{fontspec}
+\usepackage[nolocalmarks]{polyglossia}
+\setdefaultlanguage[variant=french, frenchitemlabels=false]{french}
+\usepackage[table]{xcolor}
+\usepackage{fancyhdr}
+\usepackage{titlesec}
+\usepackage{setspace}
+\usepackage{expl3}
+\usepackage{hyperref}
+\usepackage{refcount}
+\usepackage{needspace}
+\usepackage{etoolbox}
+\usepackage{enumitem}
+\usepackage{lettrine}
+\usepackage{longtable}
+\usepackage{luacode}
+\usepackage{paracol}
+\usepackage{alltt}
+
+%% We want to allow large inter-words space 
+%% to avoid overfull boxes in two-columns rubrics.
+\sloppy
+
+%%%%%%%%%%%%%%% FONTS %%%%%%%%%%%%%%%
+\setmainfont[Ligatures=TeX]{Charis SIL}
+\setstretch{1.05}
+
+%%%%%%%%%%%%%%% GREGORIO CONFIG %%%%%%%%%%%%%%%
+
+\usepackage[forcecompile]{gregoriotex}
+
+%% This global variable contains the office-part of the piece currently being
+%% typeset, for indexing and annotation purposes.
+\newcommand{\officepartbuffer}{}
+%% This global variable contains the hudelmaier code, i.e. file name, i.e. label,
+%% of the piece currently being typeset.
+\newcommand{\labelbuffer}{}
+%% This global variable contains the name of the index (A, H, R) relevant to the
+%% piece currently being typeset, if any indexing is needed for that piece.
+\newcommand{\indexnamebuffer}{}
+%% This global variable contains the order number of the piece in the current hour
+%% for annotation purposes ("Ant. 1", "Ant. 2", etc.)
+\newcommand{\numberbuffer}{}
+%% This global variable contains the mode+differentia of the last antiphon
+%% for the purposes of fetching the correct pointed psalm
+\newcommand{\nextpsalmmode}{}
+%% This global variable contains the mode+differentia of the last piece
+%% for indexing and annotation purposes
+\newcommand{\indexedmode}{}
+
+%% Given an office-part header (from Gregorio header capture), 
+%% this section annotates the score according to the office-part, 
+%% stored in \officepartbuffer, and the number stored by \gscore in \numberbuffer
+%% and stores into \indexnamebuffer the corresponding index, for later use.
+\newcommand{\abbrev}[4]{
+  \IfSubStr{#1}{#2}{%
+	\renewcommand{\officepartbuffer}{#3}%
+	\renewcommand{\indexnamebuffer}{#4}%
+  }%
+  {}%
+}
+\newcommand{\officepartannotation}[1]{%
+  \renewcommand{\officepartbuffer}{#1}%
+  \renewcommand{\indexnamebuffer}{}%
+  \abbrev{#1}{Antiphona}{Ant.}{A}%
+  \abbrev{#1}{Hymnus}{Hy.}{H}%
+  \abbrev{#1}{Responsorium breve}{R.Br.}{R}%
+  \abbrev{#1}{Toni Communes}{}{}%
+  \greannotation{\officepartbuffer \numberbuffer}%
+}
+
+%%%% This is deep magic required to define \grenewcommand, which is the same as
+%%%% \renewcommand but has global effects
+\makeatletter
+\def\gnewcommand{\g@star@or@long\new@command}
+\def\grenewcommand{\g@star@or@long\renew@command}
+\def\g@star@or@long#1{% 
+  \@ifstar{\let\l@ngrel@x\global#1}{\def\l@ngrel@x{\long\global}#1}}
+\makeatother
+%%%% end deep magic
+
+\newcommand{\changemode}[3]{%
+  \ifstrequal{#1}{#2}{%
+	\grenewcommand{\nextpsalmmode}{#3}%
+  }%
+  {}%
+}
+\newcommand{\modeannotation}[1]{
+  \grenewcommand{\nextpsalmmode}{#1}
+  \renewcommand{\indexedmode}{#1}	
+  \changemode{#1}{1a}{1a}
+  \changemode{#1}{1a2}{1a2}
+  \changemode{#1}{1a3}{1a3}
+  \changemode{#1}{1f}{1f}
+  \changemode{#1}{1g}{1g}
+  \changemode{#1}{1g2}{1g2}
+  \changemode{#1}{1g3}{1g3}
+  \changemode{#1}{2D}{2}
+  \changemode{#1}{3a}{3a}
+  \changemode{#1}{3b}{3b}
+  \changemode{#1}{3g}{3g}
+  \changemode{#1}{3g2}{3g2}
+  \changemode{#1}{4c}{4-alt-c}
+  \changemode{#1}{4E}{4E}
+  \changemode{#1}{4g}{4g}
+  \changemode{#1}{5a}{5}
+  \changemode{#1}{6F}{6}
+  \changemode{#1}{7a}{7a}
+  \changemode{#1}{7b}{7b}
+  \changemode{#1}{7c}{7c}
+  \changemode{#1}{7c2}{7c2}
+  \changemode{#1}{8c}{8c}
+  \changemode{#1}{8G}{8G}
+  \changemode{#1}{Per.}{per}
+  \greannotation{\indexedmode}
+}
+
+%% Given a name header (from Gregorio header capture),
+%% this section labels the piece with the piece label and label name,
+%% and indexes the piece accordint to its office-part and mode
+\begin{luacode*}
+function delete_newline ( s )
+   s = string.gsub ( s, 'newline', '')
+   s = string.gsub ( s, 'hspace', '')
+   s = string.gsub ( s, '4mm', '')
+   s = string.gsub ( s, 'protect', '')
+   s = string.gsub ( s, 'hbox', '')
+   s = string.gsub ( s, [[\]], '')
+   s = string.gsub ( s, "{}", '')
+   tex.sprint ( s )
+end
+\end{luacode*}
+\makeatletter
+\newcommand{\namecapture}[1]{%
+  %% this prevents page breaks between the phantom section and its label, and the actual score.
+  \needspace{4\baselineskip}%
+  \protected@edef\@currentlabelname{\directlua{delete_newline(\luastring{#1})}}%
+  \phantomsection%
+  \label{\labelbuffer}%
+  %% indexation
+  \ifdefstrequal{H}{\indexnamebuffer}{%
+    \index[\indexnamebuffer]{{#1}@\indexedmode & #1}%
+  }{}%
+  \ifdefstrequal{A}{\indexnamebuffer}{%
+    \index[\indexnamebuffer]{{#1}@\indexedmode & #1}%
+  }{}%
+  \ifdefstrequal{R}{\indexnamebuffer}{%
+    \index[\indexnamebuffer]{#1}%
+  }{}%
+}
+\makeatother
+
+\gresetheadercapture{office-part}{officepartannotation}{}
+\gresetheadercapture{mode}{modeannotation}{string}
+\gresetheadercapture{name}{namecapture}{}
+
+\newcommand{\smallscore}[2]{
+  \gresetinitiallines{0}
+  \gregorioscore{gabc/#1}
+  \gresetinitiallines{1}
+  \translation{#2}
+}
+
+\newcommand{\gscore}[3]{
+  %% #1 : the hudelmaier code, which is also the name of the file, and the label.
+  %% #2 : the number to be printed near "Ant." in a multi-antiphon hour
+  %% #3 : the translation of the piece.
+  \renewcommand{\labelbuffer}{#1}
+  \renewcommand{\numberbuffer}{#2}
+  \columnratio{0.75}
+  \begin{paracol}{2}
+  \gregorioscore{gabc/#1}
+  \switchcolumn
+  \translation{#3}
+  \end{paracol}
+  \columnratio{0.5}
+}
+
+\newcommand{\hymnus}[1]{
+  %% #1 : the hudelmaier code, which is also the name of the file,
+  %%      and the label, and the name of the translation file
+  \renewcommand{\labelbuffer}{#1}
+  \renewcommand{\numberbuffer}{}
+  \columnratio{0.75}
+  \begin{paracol}{2}
+  \gregorioscore{gabc/#1}
+  \switchcolumn
+  %\begin{alltt}\normaltext%
+  \input{hymni_fr/#1}
+  %\end{alltt}
+  \end{paracol}
+  \columnratio{0.5}
+}
+
+%%%%%%%%%%%%%%% COLUMN MANAGEMENT %%%%%%%%%%%%%%%
+
+\twosided[pc] % we want pages to keep using inner and outer margins instead of right and left (p) and we want to swap column order between left and right pages (c)
+
+\newcommand{\twocoltext}[2]{
+	\begin{paracol}{2}
+#1
+	\switchcolumn
+#2
+	\end{paracol}
+}
+
+%% Macro to print an itemized list on two columns (psalm, canticle, etc) from a tex file
+\newcommand{\twocolitemized}[2]{
+	\begin{paracol}{2}
+	\begin{itemize}[
+		label=\null, 
+		leftmargin=0pt, 
+		itemindent=10pt, 
+		labelsep=0pt, 
+		labelwidth=0pt, 
+		rightmargin=0pt, 
+		parsep=0pt, 
+		itemsep=0pt,
+		topsep=-2mm]
+	\input{#1}
+	\end{itemize}
+	\switchcolumn
+	\begin{itemize}[
+		label=\null, 
+		leftmargin=0pt, 
+		itemindent=10pt, 
+		labelsep=0pt, 
+		labelwidth=0pt, 
+		rightmargin=0pt, 
+		parsep=0pt, 
+		itemsep=0pt,
+		topsep=-2mm]
+	\input{#2}
+	\end{itemize}
+	\end{paracol}
+}
+
+\newcommand{\psalmus}[1]{
+	%% #1: psalm number
+	\phantomsection
+	\label{Psalm#1_\nextpsalmmode}
+	\index[P]{#1 (mode \nextpsalmmode)}
+	\subsection*{Psaume #1}
+	\twocolitemized{psalmi_la/psalmi/#1-\nextpsalmmode}{psalmi_fr/psalmi/#1}
+}
+
+\newcommand{\canticum}[3]{
+	%% #1: canticle code (for file naming purposes and indexing purposes}
+	%% #2: canticle title, to be printed
+	%% #3: biblical reference
+	\phantomsection
+	\label{Canticum#1_\nextpsalmmode}
+	\index[C]{#2 (mode \nextpsalmmode)}
+	\subsection*{#2}
+	\rubric{#3}
+	\twocolitemized{psalmi_la/cantici/#1-\nextpsalmmode}{psalmi_fr/cantici/#1}
+}
+
+\newcommand{\capitulum}[3]{
+\subsection*{Capitule}
+\rubric{#1}
+\twocoltext{#2}{#3}
+}
+
+%%%%%%%%%%%%%%% STYLES %%%%%%%%%%%%%%%
+
+%% No indentation of paragraphs
+\setlength{\parindent}{0mm}
+
+\newcommand{\translation}[1]{%
+	\emph{#1}%
+}
+
+%% Macro to print rubrics
+\newcommand{\rubric}[1]{\textcolor{gregoriocolor}{\emph{#1}}}
+
+%% Macro to print rubrics that inaugurate a section of more rubrics (in red, normal font, centered)
+\newcommand{\titlerubric}[1]{{\centering{}\textcolor{gregoriocolor}{#1}\par}}
+
+%% Macro to print the name of a score in normal characters inside a \rubric
+\newcommand{\normaltext}[1]{{\normalfont\normalcolor #1}}
+\newcommand{\scorename}[1]{\normaltext{\nameref{M-#1}}}
+
+%% Macro to print french-language inflexions as underlined
+\newcommand{\frflex}[1]{\underline{#1}}
+
+%% Macros to print preparatory and accented syllables in psalms
+\newcommand{\sylac}[1]{\textbf{#1}}
+\newcommand{\sylprep}[1]{\textit{#1}}
+
+\input{macros}

@@ -1,3 +1,39 @@
+%%%%%%%%%%%%%%% GRAPHICAL SHORTCUTS %%%%%%%%%%%%%%%
+
+%% V/, R/, A/ and + signs for in-line use (\vv \rr \aa \cc)
+\newcommand{\specialcharhsep}{3mm} % space after invoking R/ or V/ or A/ outside rubrics
+\newcommand{\vv}{\textcolor{gregoriocolor}{\fontspec{Charis SIL}℣.\nolinebreak[4]\hspace{\specialcharhsep}\nolinebreak[4]}}
+\newcommand{\rr}{\textcolor{gregoriocolor}{\fontspec{Charis SIL}℟.\nolinebreak[4]\hspace{\specialcharhsep}\nolinebreak[4]}}
+\renewcommand{\aa}{\textcolor{gregoriocolor}{\fontspec{Charis SIL}\Abar.\nolinebreak[4]\hspace{\specialcharhsep}\nolinebreak[4]}}
+\newcommand{\cc}{\textcolor{gregoriocolor}{\fontspec{FreeSerif}\symbol{"2720}~}}
+%% Same special characters, for in-score use (<sp>V/ R/ A/ +</sp>)
+\gresetspecial{V/}{\textcolor{gregoriocolor}{\fontspec{Charis SIL}℣.~}}
+\gresetspecial{R/}{\textcolor{gregoriocolor}{\fontspec{Charis SIL}℟.~}}
+\gresetspecial{A/}{\textcolor{gregoriocolor}{\fontspec{Charis SIL}\Abar.~}}
+\gresetspecial{+}{{\fontspec{FreeSerif}†~}}
+\gresetspecial{*}{\gresixstar}
+\gresetspecial{cross}{\textcolor{gregoriocolor}{\fontspec{FreeSerif}\symbol{"2720}}}
+\gresetspecial{labiacross}{\textcolor{gregoriocolor}{+}}
+%% Same special characters, for use in rubrics (no space, and no red command since it will be reddified with the rest)
+\newcommand{\vvrub}{{\fontspec{Charis SIL}℣.~}}
+\newcommand{\rrrub}{{\fontspec{Charis SIL}℟.~}}
+\newcommand{\aarub}{{\fontspec{Charis SIL}\Abar.~}}
+
+%% the asterisk as found in the mediants of text-only psalms
+\newcommand{\psstar}{~\GreSpecial{*}}
+\newcommand{\pscross}{~\GreSpecial{+}}
+
+%% Macro to print versicles
+\newcommand{\versiculus}[4]{
+	\twocoltext{
+		\vv #1. \\ \rr #2.
+	}{
+		\vv #3. \\ \rr #4.
+	}
+}
+
+%%%%%%%%%%%%%%% COMMON RUBRICS %%%%%%%%%%%%%%%
+
 \newcommand{\dominexaudiversiculus}{%
 	\versiculus{Dómine, exáudi oratiónem meam.}{Et clamor meus ad te véniat.}{Seigneur, entends ma prière.}{Que mon cri parvienne jusqu'à toi.}%
 }
