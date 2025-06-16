@@ -1,0 +1,5 @@
+Ce projet est une tentative d'éditer un AR 1949 Latin-Francais, au moins en partie (l'office dit "ordinaire", c'est à dire celui des dimanches et féries du TO et des fêtes mineures qui prennent leur psalmodie au psautier).
+
+GABC : de AR 1949 (Gregobase) - merci à Andrew Hinkley, Jacques Perrière, et tous les gardiens de l'écosystème GABC (Samuel Springuel, Olivier Berten, Henry So, etc.)
+
+Dépendances : 'psalmi_la' et 'psalmi_fr' : les psaumes et cantiques en latin (issus de Chant Tools, mais corrigés) et en francais (AELF) dans tous les tons, divisés selon le psautier de Pie X.
