@@ -1,8 +1,11 @@
 % !TEX TS-program = lualatex
 % !TEX encoding = UTF-8
 
-\documentclass[10pt, twoside, french, openany]{book}
-\input{common_headers}
+\documentclass[antiphonaire_ordinaire.tex]{subfiles}
+
+\ifcsname preamble@file\endcsname
+  \setcounter{page}{\getpagerefnumber{M-ao_psalterium}}
+\fi
 
 \begin{document}
 
@@ -689,6 +692,7 @@
 
 \versiculus{Vespertína orátio ascéndat ad te, Dómine.}{Et descéndat super nos misericórdia tua.}{Que la prière du soir s'élève vers toi, Seigneur.}{Et que descende sur nous ta miséricorde.}
 
+\rubric{Antienne propre du dimanche qui suit. Les samedis du temps après l'Épiphanie, on prend l'antienne ci-dessous.}
 \gscore{F7VAM}{}{Il relève Israël son serviteur, comme il l'a promis à Abraham et à sa descendance, à jamais.}
 
 \chapter*{Samedi à Complies}
@@ -725,11 +729,21 @@
 
 \subsection*{Hymne}
 
-\rubric{Dimanches pendant l'année et fêtes mineures:}
+\rubric{Pendant l'année, dimanches et fêtes à trois nocturnes:}
 \gscore{ORPHb}{}{}
 
-\rubric{Féries pendant l'année et fêtes simples:}
+\rubric{Pendant l'année, féries et fêtes simples:}
 \gscore{ORPHc}{}{}
+
+\rubric{Fêtes, pendant l'Avent:}
+
+\rubric{Fêtes, pendant l'octave de l'Épiphanie:}
+
+\rubric{Fêtes, en Carême:}
+
+\rubric{Fêtes, au temps de la Passion:}
+
+%% TODO ajouter les tons de l'hymne du temps
 
 \subsection*{Psalmodie}
 
@@ -870,11 +884,21 @@ Seigneur Dieu, Roi du ciel et de la terre, dirige et sanctifie, régis et gouver
 
 \subsection*{Hymne}
 
-\rubric{Dimanches pendant l'année et fêtes mineures:}
+\rubric{Pendant l'année, dimanches et fêtes à trois nocturnes:}
 \hymnus{ORTHb}
 
-\rubric{Féries pendant l'année et fêtes simples:}
+\rubric{Pendant l'année, féries et fêtes simples:}
 \gscore{ORTHc}{}{}
+
+\rubric{Fêtes, pendant l'Avent:}
+
+\rubric{Fêtes, pendant l'octave de l'Épiphanie:}
+
+\rubric{Fêtes, en Carême:}
+
+\rubric{Fêtes, au temps de la Passion:}
+
+%% TODO ajouter les tons de l'hymne du temps
 
 \subsection*{Psalmodie}
 
@@ -921,11 +945,21 @@ Seigneur Dieu, Roi du ciel et de la terre, dirige et sanctifie, régis et gouver
 
 \subsection*{Hymne}
 
-\rubric{Dimanches pendant l'année et fêtes mineures:}
+\rubric{Pendant l'année, dimanches et fêtes à trois nocturnes:}
 \hymnus{ORSHb}
 
-\rubric{Féries pendant l'année et fêtes simples:}
+\rubric{Pendant l'année, féries et fêtes simples:}
 \gscore{ORSHc}{}{}
+
+\rubric{Fêtes, pendant l'Avent:}
+
+\rubric{Fêtes, pendant l'octave de l'Épiphanie:}
+
+\rubric{Fêtes, en Carême:}
+
+\rubric{Fêtes, au temps de la Passion:}
+
+%% TODO ajouter les tons de l'hymne du temps
 
 \subsection*{Psalmodie}
 
@@ -974,11 +1008,21 @@ Seigneur Dieu, Roi du ciel et de la terre, dirige et sanctifie, régis et gouver
 
 \subsection*{Hymne}
 
-\rubric{Dimanches pendant l'année et fêtes mineures:}
+\rubric{Pendant l'année, dimanches et fêtes à trois nocturnes:}
 \hymnus{ORNHb}
 
-\rubric{Féries pendant l'année et fêtes simples:}
+\rubric{Pendant l'année, féries et fêtes simples:}
 \gscore{ORNHc}{}{}
+
+\rubric{Fêtes, pendant l'Avent:}
+
+\rubric{Fêtes, pendant l'octave de l'Épiphanie:}
+
+\rubric{Fêtes, en Carême:}
+
+\rubric{Fêtes, au temps de la Passion:}
+
+%% TODO ajouter les tons de l'hymne du temps
 
 \subsection*{Psalmodie}
 
@@ -1107,11 +1151,27 @@ Par Jésus Christ, ton Fils, notre Seigneur, qui vit et règne avec toi dans l'u
 
 \subsection*{Hymne}
 
+\rubric{Pendant l'année, dimanches et fêtes à trois nocturnes:}
+
 \hymnus{ORCHb}
 
-\rubric{Féries et fêtes simples:}
+\rubric{Pendant l'année, féries et fêtes simples:}
 
 \gscore{ORCHc}{}{}
+
+\rubric{Fêtes au temps de l'Avent, sauf l'Immaculée Conception et son octave:}
+% ce n'est que le ton de l'Avent du Te Lucis
+\gscore{ORCHd}{}{}
+
+\rubric{Fêtes, de Noël à l'Épiphanie:}
+% ce n'est que le ton de Noël du Te Lucis
+\gscore{ORCHe}{}{}
+
+
+\rubric{Fêtes, en Carême:}
+
+\rubric{Fêtes, au temps de la Passion:}
+%TODO rajouter les tons du te lucis
 
 \gscore{ORCRa}{}{\rr En tes mains, Seigneur, je remets mon esprit. \vv Tu nous rachètes, Seigneur, Dieu de vérité.}
 

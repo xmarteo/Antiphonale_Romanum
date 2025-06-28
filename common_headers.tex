@@ -23,6 +23,15 @@
 \makeindex[name=R,title=Répons brefs, columns=2,columnseprule, options=-s dotted.ist]
 \makeindex[name=P,title=Psaumes, columns=2,columnseprule, options=-s dotted.ist]
 \makeindex[name=C,title=Cantiques, columns=2,columnseprule, options=-s dotted.ist]
+\makeindex[name=F,title=Fêtes, columns=2,columnseprule, options=-s dotted.ist]
+
+%% command to wrap printindex and set the headers for indices
+\newcommand{\cprintindex}[2]{
+	\setheaders{Indices}{#2}
+	\pagestyle{fancy}
+	\thispagestyle{empty}
+	\printindex[#1]
+}
 
 %%%%%%%%%%%%%%% GEOMETRY %%%%%%%%%%%%%%%
 
@@ -303,6 +312,11 @@ end
 \twocoltext{#2}{#3}
 }
 
+\newcommand{\oratio}[2]{
+\subsection*{Oraison}
+\twocoltext{#1}{#2}
+}
+
 %%%%%%%%%%%%%%% STYLES %%%%%%%%%%%%%%%
 
 %% No indentation of paragraphs
@@ -330,3 +344,12 @@ end
 \newcommand{\sylprep}[1]{\textit{#1}}
 
 \input{macros}
+
+%%%%%%%%%%%%%%% SUBFILES %%%%%%%%%%%%%%%
+
+\usepackage{xr}
+\usepackage{subfiles}
+
+%% When we start a new subfile (new chapter), 
+%% we start on a new page (with blank filling on the previous page) and create a corresponding label.
+\newcommand{\customsubfile}[1]{\newpage\label{#1}\thispagestyle{empty}\subfile{#1}}

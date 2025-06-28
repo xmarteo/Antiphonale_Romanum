@@ -1,0 +1,24 @@
+% !TEX TS-program = lualatex
+% !TEX encoding = UTF-8
+
+\documentclass[10apt, twoside, french, openany]{book}
+\input{common_headers}
+\externaldocument[M-]{\subfix{antiphonaire_ordinaire}}
+
+\begin{document}
+
+\customsubfile{ao_tempore}
+\customsubfile{ao_psalterium}
+\customsubfile{ao_sanctis}
+
+\addcontentsline{toc}{chapter}{Index}
+\cprintindex{A}{Antiennes}
+\cprintindex{H}{Hymnes}
+\cprintindex{R}{Répons brefs}
+\cprintindex{P}{Psaumes}
+\cprintindex{C}{Cantiques}
+\cprintindex{F}{Fêtes}
+\newpage
+\tableofcontents
+
+\end{document}
