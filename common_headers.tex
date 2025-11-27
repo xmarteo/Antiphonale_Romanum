@@ -217,13 +217,8 @@ end
   %% #3 : the translation of the piece.
   \renewcommand{\labelbuffer}{#1}
   \renewcommand{\numberbuffer}{#2}
-  \columnratio{0.75}
-  \begin{paracol}{2}
   \gregorioscore{gabc/#1}
-  \switchcolumn
   \translation{#3}
-  \end{paracol}
-  \columnratio{0.5}
 }
 
 \newcommand{\hymnus}[1]{
@@ -231,15 +226,10 @@ end
   %%      and the label, and the name of the translation file
   \renewcommand{\labelbuffer}{#1}
   \renewcommand{\numberbuffer}{}
-  \columnratio{0.75}
-  \begin{paracol}{2}
   \gregorioscore{gabc/#1}
-  \switchcolumn
   %\begin{alltt}\normaltext%
   \input{hymni_fr/#1}
   %\end{alltt}
-  \end{paracol}
-  \columnratio{0.5}
 }
 
 %%%%%%%%%%%%%%% COLUMN MANAGEMENT %%%%%%%%%%%%%%%
