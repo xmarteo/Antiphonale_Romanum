@@ -245,12 +245,13 @@ end
 }
 
 %% Macro to print an itemized list on two columns (psalm, canticle, etc) from a tex file
+\newcommand{\psalmverseindent}{10pt}
 \newcommand{\twocolitemized}[2]{
 	\begin{paracol}{2}
 	\begin{itemize}[
 		label=\null, 
 		leftmargin=0pt, 
-		itemindent=10pt, 
+		itemindent=\psalmverseindent, 
 		labelsep=0pt, 
 		labelwidth=0pt, 
 		rightmargin=0pt, 
@@ -263,7 +264,7 @@ end
 	\begin{itemize}[
 		label=\null, 
 		leftmargin=0pt, 
-		itemindent=10pt, 
+		itemindent=\psalmverseindent, 
 		labelsep=0pt, 
 		labelwidth=0pt, 
 		rightmargin=0pt, 
@@ -281,7 +282,7 @@ end
 	\label{Psalm#1_\nextpsalmmode}
 	\index[P]{#1 (mode \nextpsalmmode)}
 	\subsection*{Psaume #1}
-	\twocolitemized{psalmi_la/psalmi/#1-\nextpsalmmode}{psalmi_fr/psalmi/#1}
+	\twocolitemized{psalmi_la/psalmi_lettrine/#1-\nextpsalmmode}{psalmi_fr/psalmi_lettrine/#1}
 }
 
 \newcommand{\canticum}[3]{
@@ -293,7 +294,7 @@ end
 	\index[C]{#2 (mode \nextpsalmmode)}
 	\subsection*{#2}
 	\rubric{#3}
-	\twocolitemized{psalmi_la/cantici/#1-\nextpsalmmode}{psalmi_fr/cantici/#1}
+	\twocolitemized{psalmi_la/cantici_lettrine/#1-\nextpsalmmode}{psalmi_fr/cantici_lettrine/#1}
 }
 
 \newcommand{\capitulum}[3]{
