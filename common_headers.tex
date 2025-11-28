@@ -27,7 +27,7 @@
 
 %% command to wrap printindex and set the headers for indices
 \newcommand{\cprintindex}[2]{
-	\setheaders{Indices}{#2}
+	\setheaders{Index}{#2}
 	\pagestyle{fancy}
 	\thispagestyle{empty}
 	\printindex[#1]
@@ -334,7 +334,31 @@ end
 \newcommand{\sylac}[1]{\textbf{#1}}
 \newcommand{\sylprep}[1]{\textit{#1}}
 
-\input{macros}
+%%%%%%%%%%%%%%% HEADER STYLES %%%%%%%%%%%%%%%
+
+\pagestyle{fancy}
+\fancyhead{}
+\fancyfoot{}
+\renewcommand{\headrulewidth}{0pt}
+\setlength{\headheight}{20pt}
+\fancyhead[RO]{\small\thepage}
+\fancyhead[LE]{\small\thepage}
+\fancyhead[CO]{\small\rightmark}
+\fancyhead[CE]{\small\leftmark}
+
+% this command is called every time the left and right header texts are set (e.g. by calling \feast)
+% the hyphenpenalty override is neede only on older versions of gregorio which do not reset it correctly after typesetting the score.
+% see https://tex.stackexchange.com/questions/581013/lualatex-hyphenation-issue-in-fancyhdr-with-gregoriotex-and-multicols-latin-te
+\newcommand{\setheaders}[2]{
+	\grenewcommand{\rightmark}{\hyphenpenalty=50{\sc#2}}
+	\grenewcommand{\leftmark}{\hyphenpenalty=50{\sc#1}}
+}
+\setheaders{}{}
+
+%%%%%%%%%%%%%%% MACROS %%%%%%%%%%%%%%%
+
+\input{macros} %% cf. the macros file
+
 
 %%%%%%%%%%%%%%% SUBFILES %%%%%%%%%%%%%%%
 
