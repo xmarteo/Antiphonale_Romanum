@@ -131,13 +131,13 @@ headsep=3mm,
 
 \newcommand{\changemode}[3]{%
   \ifstrequal{#1}{#2}{%
-	\grenewcommand{\nextpsalmmode}{#3}%
+	\global\def\nextpsalmmode{#3}
   }%
   {}%
 }
 \newcommand{\modeannotation}[1]{
-  \grenewcommand{\nextpsalmmode}{#1}
-  \renewcommand{\indexedmode}{#1}	
+  \global\def\nextpsalmmode{#1}
+  \global\def\indexedmode{#1}	
   \changemode{#1}{1a}{1a}
   \changemode{#1}{1a2}{1a2}
   \changemode{#1}{1a3}{1a3}
@@ -350,8 +350,8 @@ end
 % the hyphenpenalty override is neede only on older versions of gregorio which do not reset it correctly after typesetting the score.
 % see https://tex.stackexchange.com/questions/581013/lualatex-hyphenation-issue-in-fancyhdr-with-gregoriotex-and-multicols-latin-te
 \newcommand{\setheaders}[2]{
-	\grenewcommand{\rightmark}{\hyphenpenalty=50{\sc#2}}
-	\grenewcommand{\leftmark}{\hyphenpenalty=50{\sc#1}}
+	\global\def\rightmark{\hyphenpenalty=50{\sc#2}}
+	\global\def\leftmark{\hyphenpenalty=50{\sc#1}}
 }
 \setheaders{}{}
 
