@@ -72,7 +72,7 @@ headsep=3mm,
 \sloppy
 
 %%%%%%%%%%%%%%% FONTS %%%%%%%%%%%%%%%
-\setmainfont[Ligatures=TeX]{Charis SIL}
+\setmainfont[Ligatures=TeX]{Charis}
 \setstretch{1.05}
 
 %%%%%%%%%%%%%%% GREGORIO CONFIG %%%%%%%%%%%%%%%
@@ -293,19 +293,8 @@ end
 	\label{Canticum#1_\nextpsalmmode}
 	\index[C]{#2 (mode \nextpsalmmode)}
 	\subsection*{#2}
-	\rubric{#3}
+	\rubr{#3}
 	\twocolitemized{psalmi_la/cantici_lettrine/#1-\nextpsalmmode}{psalmi_fr/cantici_lettrine/#1}
-}
-
-\newcommand{\capitulum}[3]{
-\subsection*{Capitule}
-\rubric{#1}
-\twocoltext{#2}{#3}
-}
-
-\newcommand{\oratio}[2]{
-\subsection*{Oraison}
-\twocoltext{#1}{#2}
 }
 
 %%%%%%%%%%%%%%% STYLES %%%%%%%%%%%%%%%
@@ -317,13 +306,26 @@ end
 	\emph{#1}%
 }
 
+%% Styles des paragraphes spéciaux (capitulum oratio etc.)
+
+%% Magie profonde pour pouvoir insérer \drop devant un paragraphe, et que cela insère une lettrine.
+\def\drop #1#2 {% note the space before {
+  \lettrine{#1}{#2} % a trailing space
+}
+\def\rdrop #1#2 {% note the space before {
+  \lettrine{\textcolor{gregoriocolor}{#1}}{#2} % a trailing space
+}
+
 %% Macro to print rubrics
-\newcommand{\rubric}[1]{\textcolor{gregoriocolor}{\emph{#1}}}
+\newcommand{\rubrica}[1]{\hspace*{0.04\textwidth}\textcolor{gregoriocolor}{{\footnotesize #1}}\par}
+
+%% Macro to insert red text inside normal text
+\newcommand{\rubr}[1]{\textcolor{gregoriocolor}{#1}}
 
 %% Macro to print rubrics that inaugurate a section of more rubrics (in red, normal font, centered)
-\newcommand{\titlerubric}[1]{{\centering{}\textcolor{gregoriocolor}{#1}\par}}
+\newcommand{\titulumrubrica}[1]{\needspace{5\baselineskip}\begin{center}\textsc{#1}\end{center}}
 
-%% Macro to print the name of a score in normal characters inside a \rubric
+%% Macro to print the name of a score in normal characters inside a \rubrica
 \newcommand{\normaltext}[1]{{\normalfont\normalcolor #1}}
 \newcommand{\scorename}[1]{\normaltext{\nameref{M-#1}}}
 

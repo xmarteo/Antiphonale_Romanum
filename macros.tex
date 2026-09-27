@@ -2,22 +2,22 @@
 
 %% V/, R/, A/ and + signs for in-line use (\vv \rr \aa \cc)
 \newcommand{\specialcharhsep}{3mm} % space after invoking R/ or V/ or A/ outside rubrics
-\newcommand{\vv}{\textcolor{gregoriocolor}{\fontspec{Charis SIL}℣.\nolinebreak[4]\hspace{\specialcharhsep}\nolinebreak[4]}}
-\newcommand{\rr}{\textcolor{gregoriocolor}{\fontspec{Charis SIL}℟.\nolinebreak[4]\hspace{\specialcharhsep}\nolinebreak[4]}}
-\renewcommand{\aa}{\textcolor{gregoriocolor}{\fontspec{Charis SIL}\Abar.\nolinebreak[4]\hspace{\specialcharhsep}\nolinebreak[4]}}
+\newcommand{\vv}{\textcolor{gregoriocolor}{\fontspec{Charis}℣.\nolinebreak[4]\hspace{\specialcharhsep}\nolinebreak[4]}}
+\newcommand{\rr}{\textcolor{gregoriocolor}{\fontspec{Charis}℟.\nolinebreak[4]\hspace{\specialcharhsep}\nolinebreak[4]}}
+\renewcommand{\aa}{\textcolor{gregoriocolor}{\fontspec{Charis}\Abar.\nolinebreak[4]\hspace{\specialcharhsep}\nolinebreak[4]}}
 \newcommand{\cc}{\textcolor{gregoriocolor}{\fontspec{FreeSerif}\symbol{"2720}~}}
 %% Same special characters, for in-score use (<sp>V/ R/ A/ +</sp>)
-\gresetspecial{V/}{\textcolor{gregoriocolor}{\fontspec{Charis SIL}℣.~}}
-\gresetspecial{R/}{\textcolor{gregoriocolor}{\fontspec{Charis SIL}℟.~}}
-\gresetspecial{A/}{\textcolor{gregoriocolor}{\fontspec{Charis SIL}\Abar.~}}
+\gresetspecial{V/}{\textcolor{gregoriocolor}{\fontspec{Charis}℣.~}}
+\gresetspecial{R/}{\textcolor{gregoriocolor}{\fontspec{Charis}℟.~}}
+\gresetspecial{A/}{\textcolor{gregoriocolor}{\fontspec{Charis}\Abar.~}}
 \gresetspecial{+}{{\fontspec{FreeSerif}†~}}
 \gresetspecial{*}{\gresixstar}
 \gresetspecial{cross}{\textcolor{gregoriocolor}{\fontspec{FreeSerif}\symbol{"2720}}}
 \gresetspecial{labiacross}{\textcolor{gregoriocolor}{+}}
 %% Same special characters, for use in rubrics (no space, and no red command since it will be reddified with the rest)
-\newcommand{\vvrub}{{\fontspec{Charis SIL}℣.~}}
-\newcommand{\rrrub}{{\fontspec{Charis SIL}℟.~}}
-\newcommand{\aarub}{{\fontspec{Charis SIL}\Abar.~}}
+\newcommand{\vvrub}{{\fontspec{Charis}℣.~}}
+\newcommand{\rrrub}{{\fontspec{Charis}℟.~}}
+\newcommand{\aarub}{{\fontspec{Charis}\Abar.~}}
 
 %% the asterisk as found in the mediants of text-only psalms
 \newcommand{\psstar}{~\GreSpecial{*}}
@@ -32,6 +32,45 @@
 	}
 }
 
+%% Little Chapter
+\newcommand{\capitulum}[3]{%
+	%% #1 : biblical reference
+	%% #2 : little chapter text, with \psstar and \pscross for the flexes and mediants
+	%% #3 : translation
+	\needspace{3\baselineskip} % To avoid orphaning the title
+	\hspace*{0.04\textwidth}% See also the padding of the rubrics macro
+	\textcolor{gregoriocolor}{Capitule}%
+	\hfill%
+	\textcolor{gregoriocolor}{#1}%
+	\hspace*{0.04\textwidth}%
+	\twocoltext{\rdrop #2}{\rdrop #3}
+	\vspace{2mmplus 1.5mmminus 1.5mm}
+}
+
+%% Little Chapter
+\newcommand{\lbrev}[3]{%
+	%% #1 : biblical reference
+	%% #2 : lectio brevis text, with \psstar and \pscross for the flexes and mediants
+	%% #3 : translation
+	\needspace{3\baselineskip} % To avoid orphaning the title
+	\hspace*{0.04\textwidth}% See also the padding of the rubrics macro
+	\textcolor{gregoriocolor}{Lecture Brève}%
+	\hfill%
+	\textcolor{gregoriocolor}{#1}%
+	\hspace*{0.04\textwidth}%
+	\twocoltext{\rdrop #2}{\rdrop #3}
+	\vspace{2mmplus 1.5mmminus 1.5mm}
+}
+
+%% Collect
+
+\newcommand{\oratio}[2]{%
+	%% #1 : oration text, with \psstar and \pscross for the flexes and mediants
+	\needspace{3\baselineskip} % To avoid orphaning the title
+	{\centering\textcolor{gregoriocolor}{Oraison}\par}
+	\twocoltext{\rdrop #1}{\rdrop #2}
+}
+
 %%%%%%%%%%%%%%% COMMON RUBRICS %%%%%%%%%%%%%%%
 
 \newcommand{\dominexaudiversiculus}{%
@@ -43,11 +82,11 @@
 }
 
 \newcommand{\ordinariumrubric}[1]{%
-	\rubric{Suite de l'office à l'ordinaire, page~\pageref{#1}.}%
+	\rubrica{Suite de l'office à l'ordinaire, page~\pageref{#1}.}%
 }
 
 \newcommand{\altertonus}[1]{%
-	\rubric{autre ton ad libitum:}%
+	\rubrica{autre ton ad libitum:}%
 }
 
 \newcommand{\perdominumfr}{Par Jésus Christ.}
