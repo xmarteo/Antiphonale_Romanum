@@ -66,6 +66,7 @@ headsep=3mm,
 \usepackage{luacode}
 \usepackage{paracol}
 \usepackage{alltt}
+\usepackage{multicol}
 
 %% We want to allow large inter-words space 
 %% to avoid overfull boxes in two-columns rubrics.
@@ -227,9 +228,13 @@ end
   \renewcommand{\labelbuffer}{#1}
   \renewcommand{\numberbuffer}{}
   \gregorioscore{gabc/#1}
-  %\begin{alltt}\normaltext%
-  \input{hymni_fr/#1}
-  %\end{alltt}
+  \begin{multicols}{2}
+  \begin{obeycr}
+  {
+  \translation{\input{hymni_fr/#1}}
+  }
+  \end{obeycr}
+  \end{multicols}
 }
 
 %%%%%%%%%%%%%%% COLUMN MANAGEMENT %%%%%%%%%%%%%%%
@@ -256,8 +261,9 @@ end
 		labelwidth=0pt, 
 		rightmargin=0pt, 
 		parsep=0pt, 
-		itemsep=0pt,
-		topsep=-2mm]
+		itemsep=0pt plus 1pt minus 0pt,
+%		topsep=-2mm,
+		]
 	\input{#1}
 	\end{itemize}
 	\switchcolumn
@@ -269,19 +275,25 @@ end
 		labelwidth=0pt, 
 		rightmargin=0pt, 
 		parsep=0pt, 
-		itemsep=0pt,
-		topsep=-2mm]
+		itemsep=0pt plus 1pt minus 0pt,
+%		topsep=-2mm,
+		]
 	\input{#2}
+	%% We add the French GP if and only if this is not TriumPuerorum
+	\ifstrequal{#2}{psalmi_fr/cantici_lettrine/TriumPuerorum}%
+		{}%
+		{\item Gloire au Père, au F\frflex{i}ls, et au Saint-Esprit,\psstar{} pour les siècles des si\frflex{è}cles, Amen.}
 	\end{itemize}
 	\end{paracol}
 }
 
 \newcommand{\psalmus}[1]{
 	%% #1: psalm number
+	\needspace{4\baselineskip}
 	\phantomsection
 	\label{Psalm#1_\nextpsalmmode}
 	\index[P]{#1 (mode \nextpsalmmode)}
-	\subsection*{Psaume #1}
+	{\centering\textbf{Psaume #1}\par}
 	\twocolitemized{psalmi_la/psalmi_lettrine/#1-\nextpsalmmode}{psalmi_fr/psalmi_lettrine/#1}
 }
 
@@ -289,11 +301,15 @@ end
 	%% #1: canticle code (for file naming purposes and indexing purposes}
 	%% #2: canticle title, to be printed
 	%% #3: biblical reference
+	\needspace{4\baselineskip}
 	\phantomsection
 	\label{Canticum#1_\nextpsalmmode}
 	\index[C]{#2 (mode \nextpsalmmode)}
-	\subsection*{#2}
-	\rubr{#3}
+	\hspace*{0.04\textwidth}% See also the padding of the rubrics macro
+	\textbf{#2}%
+	\hfill%
+	\textcolor{gregoriocolor}{#3}%
+	\hspace*{0.04\textwidth}%
 	\twocolitemized{psalmi_la/cantici_lettrine/#1-\nextpsalmmode}{psalmi_fr/cantici_lettrine/#1}
 }
 
@@ -303,7 +319,7 @@ end
 \setlength{\parindent}{0mm}
 
 \newcommand{\translation}[1]{%
-	\emph{#1}%
+	\emph{\small #1}\par%
 }
 
 %% Styles des paragraphes spéciaux (capitulum oratio etc.)
@@ -317,7 +333,7 @@ end
 }
 
 %% Macro to print rubrics
-\newcommand{\rubrica}[1]{\hspace*{0.04\textwidth}\textcolor{gregoriocolor}{{\footnotesize #1}}\par}
+\newcommand{\rubrica}[1]{\hspace*{0.04\textwidth}\textcolor{gregoriocolor}{{\small #1}}\par}
 
 %% Macro to insert red text inside normal text
 \newcommand{\rubr}[1]{\textcolor{gregoriocolor}{#1}}
@@ -335,6 +351,30 @@ end
 %% Macros to print preparatory and accented syllables in psalms
 \newcommand{\sylac}[1]{\textbf{#1}}
 \newcommand{\sylprep}[1]{\textit{#1}}
+
+%% Macro to print titles
+\newcommand{\titulum}[4]{
+	%% #1 : niveau de titre : 1 > 2 > 3
+	%% #2 : titre
+	%% #3 : en-tête gauche
+	%% #4 : en-tête droit
+	\begin{center}
+	\ifstrequal{#1}{1}{
+		\needspace{6\baselineskip}%
+		{\Huge {\par\uppercase{#2}\par}}%
+	}{}
+	\ifstrequal{#1}{2}{
+		\needspace{5\baselineskip}%
+		{\LARGE {#2}}\par\nopagebreak%
+	}{}
+	\ifstrequal{#1}{3}{
+		\needspace{4\baselineskip}%
+		{\Large {#2}}\par\nopagebreak%
+	}{}
+	\end{center}
+	\phantomsection
+	\ifstrequal{#3}{}{}{\setheaders{#3}{#4}}
+}
 
 %%%%%%%%%%%%%%% HEADER STYLES %%%%%%%%%%%%%%%
 
