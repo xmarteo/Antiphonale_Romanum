@@ -76,9 +76,99 @@ headsep=3mm,
 \setmainfont[Ligatures=TeX]{Charis}
 \setstretch{1.05}
 
+%%%%%%% LETTRINES BEFORE SCORES
+
+%% Cette commande remet à zéro le style des initiales après une modification de style (lettrine)
+\newcommand{\resetinitialstyle}{%
+	\gresetinitiallines{1}%
+	\grechangestyle{initial}{\begingroup\fontsize{40}{40}\selectfont}[\endgroup]%
+	\grechangedim{annotationraise}{\defaultannotationraise}{fixed}%
+}
+%% Appel des polices de lettrines avec les différents stylisticsets de SolesmesCaps
+\newfontfamily\solesmescaps[
+  Path = ./,
+  Extension = .ttf,
+  Ligatures = TeX,
+]{SolesmesCaps}
+\newfontfamily\descleeflora[
+  Path = ./,
+  Extension = .ttf,
+  Ligatures = TeX,
+]{DescleeFlora}
+\newfontfamily\solesmescapsround[
+  Path = ./,
+  Extension = .ttf,
+  Ligatures = TeX,
+  StylisticSet = {1} % ss01 = table ROUNDER-1
+]{SolesmesCaps}
+\newfontfamily\solesmescapsalt[
+  Path = ./,
+  Extension = .ttf,
+  Ligatures = TeX,
+  StylisticSet = {2} % ss02 = table VARIANTS-1
+]{SolesmesCaps}
+\newfontfamily\solesmescapsroundalt[
+  Path = ./,
+  Extension = .ttf,
+  Ligatures = TeX,
+  StylisticSet = {1, 3} % ss03 = table ROUNDERVARIANTS-1
+]{SolesmesCaps}
+\newfontfamily\solesmescapsspecial[
+  Path = ./,
+  Extension = .ttf,
+  Ligatures = TeX,
+  StylisticSet = {4} % ss04 = table SPECIFIC-1
+]{SolesmesCaps}
+%% Cette commande permet de modifier le niveau d'initiale de la prochaine pièce.
+\newcommand{\cantusilluminatio}[2][normal]{
+%% #1 (optionnel) : variante demandée pour la police d'initiales: "round", "alt", "roundalt", "special"
+%% #2: niveau d'initiale attendue. 1 => initiale ornée de hauteur 1 ligne. 2 => hauteur 2 lignes.
+	\ifstrequal{#2}{1}{%
+		\gresetinitiallines{1}%
+		\grechangestyle{initial}{\begingroup\descleeflora\fontsize{50}{50}\selectfont}[\endgroup]%
+		\grechangedim{annotationraise}{2.5mm}{fixed}%
+	}{}%
+	\ifstrequal{#2}{2}{%
+		\gresetinitiallines{2}%
+		\ifstrequal{#1}{normal}{%
+			\grechangestyle{initial}{\begingroup\solesmescaps\fontsize{115}{115}\selectfont}[\endgroup]%
+		}{}%
+		\ifstrequal{#1}{round}{%
+			\grechangestyle{initial}{\begingroup\solesmescapsround\fontsize{115}{115}\selectfont}[\endgroup]%
+		}{}%
+		\ifstrequal{#1}{alt}{%
+			\grechangestyle{initial}{\begingroup\solesmescapsalt\fontsize{115}{115}\selectfont}[\endgroup]%
+		}{}%
+		\ifstrequal{#1}{roundalt}{%
+			\grechangestyle{initial}{\begingroup\solesmescapsroundalt\fontsize{115}{115}\selectfont}[\endgroup]%
+		}{}%
+		\ifstrequal{#1}{special}{%
+			\grechangestyle{initial}{\begingroup\solesmescapsspecial\fontsize{115}{115}\selectfont}[\endgroup]%
+		}{}%
+		\grechangedim{annotationraise}{1mm}{fixed}%
+	}{}
+}
+
+%%%%%%%% LETTRINES BEFORE PSALMS
+
+\newcommand{\resetlettrinestyle}{%
+	\renewcommand{\LettrineFontHook}{\fontspec{Charis}}%
+	\setcounter{DefaultLines}{2}%
+}
+\newcommand{\speciallettrine}{%
+	\renewcommand{\LettrineFontHook}{\fontspec{Zallman Caps}}%
+	\setcounter{DefaultLines}{2}%
+}
+
 %%%%%%%%%%%%%%% GREGORIO CONFIG %%%%%%%%%%%%%%%
 
 \usepackage[forcecompile]{gregoriotex}
+
+%%%%%% Géométrie des annotations
+
+\grechangestyle{annotation}{\footnotesize}
+\newcommand{\defaultannotationraise}{-0mm}
+\grechangedim{annotationraise}{\defaultannotationraise}{fixed}
 
 %% This global variable contains the office-part of the piece currently being
 %% typeset, for indexing and annotation purposes.
@@ -210,6 +300,7 @@ end
   \gregorioscore{gabc/#1}
   \gresetinitiallines{1}
   \translation{#2}
+  \resetinitialstyle
 }
 
 \newcommand{\gscore}[3]{
@@ -220,6 +311,7 @@ end
   \renewcommand{\numberbuffer}{#2}
   \gregorioscore{gabc/#1}
   \translation{#3}
+  \resetinitialstyle
 }
 
 \newcommand{\hymnus}[1]{
@@ -229,12 +321,13 @@ end
   \renewcommand{\numberbuffer}{}
   \gregorioscore{gabc/#1}
   \begin{multicols}{2}
-  \begin{obeycr}
-  {
-  \translation{\input{hymni_fr/#1}}
-  }
+  \begin{obeycr}%
+  {%
+	\translation{\input{hymni_fr/#1}}%
+  }%
   \end{obeycr}
   \end{multicols}
+  \resetinitialstyle
 }
 
 %%%%%%%%%%%%%%% COLUMN MANAGEMENT %%%%%%%%%%%%%%%
@@ -252,6 +345,7 @@ end
 %% Macro to print an itemized list on two columns (psalm, canticle, etc) from a tex file
 \newcommand{\psalmverseindent}{10pt}
 \newcommand{\twocolitemized}[2]{
+	\vspace{2mm plus .5mm minus .5mm}
 	\begin{paracol}{2}
 	\begin{itemize}[
 		label=\null, 
@@ -262,7 +356,7 @@ end
 		rightmargin=0pt, 
 		parsep=0pt, 
 		itemsep=0pt plus 1pt minus 0pt,
-%		topsep=-2mm,
+		topsep=-2mm,
 		]
 	\input{#1}
 	\end{itemize}
@@ -276,7 +370,7 @@ end
 		rightmargin=0pt, 
 		parsep=0pt, 
 		itemsep=0pt plus 1pt minus 0pt,
-%		topsep=-2mm,
+		topsep=-2mm,
 		]
 	\input{#2}
 	%% We add the French GP if and only if this is not TriumPuerorum
@@ -293,8 +387,10 @@ end
 	\phantomsection
 	\label{Psalm#1_\nextpsalmmode}
 	\index[P]{#1 (mode \nextpsalmmode)}
+	\vspace{2mm plus .5mm minus .5mm}
 	{\centering\textbf{Psaume #1}\par}
 	\twocolitemized{psalmi_la/psalmi_lettrine/#1-\nextpsalmmode}{psalmi_fr/psalmi_lettrine/#1}
+	\resetlettrinestyle
 }
 
 \newcommand{\canticum}[3]{
@@ -302,15 +398,21 @@ end
 	%% #2: canticle title, to be printed
 	%% #3: biblical reference
 	\needspace{4\baselineskip}
+	\vspace{2mm plus .5mm minus .5mm}
 	\phantomsection
 	\label{Canticum#1_\nextpsalmmode}
 	\index[C]{#2 (mode \nextpsalmmode)}
-	\hspace*{0.04\textwidth}% See also the padding of the rubrics macro
-	\textbf{#2}%
-	\hfill%
-	\textcolor{gregoriocolor}{#3}%
-	\hspace*{0.04\textwidth}%
+	\ifstrequal{#3}{}{%
+		{\centering\textbf{#2}\par}% Cas rare qui gère des cantiques non-scripturaires. Ex: Symbole d'Athanase
+	}{%
+		\hspace*{0.04\textwidth}% See also the padding of the rubrics macro
+		\textbf{#2}%
+		\hfill%
+		\textcolor{gregoriocolor}{#3}%
+		\hspace*{0.04\textwidth}%
+	}
 	\twocolitemized{psalmi_la/cantici_lettrine/#1-\nextpsalmmode}{psalmi_fr/cantici_lettrine/#1}
+	\resetlettrinestyle
 }
 
 %%%%%%%%%%%%%%% STYLES %%%%%%%%%%%%%%%
@@ -362,10 +464,12 @@ end
 	\ifstrequal{#1}{1}{
 		\needspace{6\baselineskip}%
 		{\Huge {\par\uppercase{#2}\par}}%
+		\thispagestyle{empty}%
 	}{}
 	\ifstrequal{#1}{2}{
 		\needspace{5\baselineskip}%
 		{\LARGE {#2}}\par\nopagebreak%
+		\thispagestyle{empty}%
 	}{}
 	\ifstrequal{#1}{3}{
 		\needspace{4\baselineskip}%
