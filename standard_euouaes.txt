@@ -1,0 +1,139 @@
+1D
+<eu>E(h) u(h) o(g) u(f) a(gh) e.</eu>(gvFED.) (::)
+<eu>(hr) (g) <sp>+</sp>(,) (hr) (ixir) (h) <sp>*</sp>(;) (hr) (gr) (f) </eu>(d) (::)
+
+1D2
+<eu>E(h) u(h) o(g) u(f) a(gf) e.</eu>(d.) (::)
+<eu>(hr) (g) <sp>+</sp>(,) (hr) (ixir) (h) <sp>*</sp>(;) (hr) (gr) (f) </eu>(d) (::)
+
+1a
+<eu>E(h) u(h) o(g) u(f) a(g) e.</eu>(h.) (::)
+<eu>(hr) (g) <sp>+</sp>(,) (hr) (ixir) (h) <sp>*</sp>(;) (hr) (gr) (f) </eu>(h) (::)
+
+1a2
+<eu>E(h) u(h) o(g) u(f) a(g) e.</eu>(gh..) (::)
+<eu>(hr) (g) <sp>+</sp>(,) (hr) (ixir) (h) <sp>*</sp>(;) (hr) (gr) (f) </eu>(h) (::)
+
+1a3
+<eu>E(h) u(h) o(g) u(f) a(gh) e.</eu>(gh..) (::)
+<eu>(hr) (g) <sp>+</sp>(,) (hr) (ixir) (h) <sp>*</sp>(;) (hr) (gr) (f) </eu>(h) (::)
+
+1f
+<eu>E(h) u(h) o(g) u(f) a(gh) e.</eu>(gf..) (::)
+<eu>(hr) (g) <sp>+</sp>(,) (hr) (ixir) (h) <sp>*</sp>(;) (hr) (gr) (h) </eu>(f) (::)
+
+1g
+<eu>E(h) u(h) o(g) u(f) a(gh) e.</eu>(g.) (::)
+<eu>(hr) (g) <sp>+</sp>(,) (hr) (ixir) (h) <sp>*</sp>(;) (hr) (gr) (f) </eu>(g) (::)
+
+1g2
+<eu>E(h) u(h) o(g) u(f) a(g) e.</eu>(ghg.) (::)
+<eu>(hr) (g) <sp>+</sp>(,) (hr) (ixir) (h) <sp>*</sp>(;) (hr) (gr) (f) </eu>(g) (::)
+
+1g3
+<eu>E(h) u(h) o(g) u(f) a(g) e.</eu>(g.) (::)
+<eu>(hr) (g) <sp>+</sp>(,) (hr) (ixir) (h) <sp>*</sp>(;) (hr) (gr) (f) </eu>(g) (::)
+
+2D
+<eu>E(h) u(h) o(h) u(g) a(e) e.</eu>(f.) (::)
+<eu>(hr) (f) <sp>+</sp>(,) (hr) (ir) (h) <sp>*</sp>(;) (hr) (gr) (e) </eu>(f) (::)
+
+3a
+<eu>E(j) u(j) o(j) u(h) a(j) e.</eu>(ih..) (::)
+<eu>(jr) (h) <sp>+</sp>(,) (jr) (kr) (j) <sp>*</sp>(;) (jr) (ir) (j) </eu>(h) (::)
+
+3b
+<eu>E(j) u(j) o(j) u(h) a(j) e.</eu>(i.) (::)
+<eu>(jr) (h) <sp>+</sp>(,) (jr) (kr) (j) <sp>*</sp>(;) (jr) (ir) (h) </eu>(i) (::)
+
+3g
+<eu>E(j) u(j) o(ji) u(hi) a(h) e.</eu>(g.) (::)
+<eu>(jr) (h) <sp>+</sp>(,) (jr) (kr) (j) <sp>*</sp>(;) (jr) (ir) (h) </eu>(g) (::)
+
+3g2
+<eu>E(j) u(h) o(j) u(i) a(h) e.</eu>(g.) (::)
+<eu>(jr) (h) <sp>+</sp>(,) (jr) (kr) (j) <sp>*</sp>(;) (jr) (ir) (h) </eu>(g) (::)
+
+3a (antiquior)
+<eu>E(i) u(i) o(j) u(h) a(j) e.</eu>(ih..) (::)
+<eu>(ir) (h) <sp>+</sp>(,) (ir) (kr) (j) <sp>*</sp>(;) (ir) (jr) (i) </eu>(h) (::)
+
+3b (antiquior)
+<eu>E(i) u(i) o(j) u(h) a(j) e.</eu>(i.) (::)
+<eu>(ir) (h) <sp>+</sp>(,) (ir) (kr) (j) <sp>*</sp>(;) (ir) (jr) (h) </eu>(i) (::)
+
+3g (antiquior)
+<eu>E(i) u(i) o(ji) u(hi) a(h) e.</eu>(g.) (::)
+<eu>(ir) (h) <sp>+</sp>(,) (ir) (kr) (j) <sp>*</sp>(;) (ir) (hr) (i) </eu>(g) (::)
+
+3g2 (antiquior)
+<eu>E(i) u(i) o(j) u(hi) a(h) e.</eu>(g.) (::)
+<eu>(ir) (h) <sp>+</sp>(,) (ir) (kr) (j) <sp>*</sp>(;) (ir) (hr) (i) </eu>(g) (::)
+
+4E
+<eu>E(h) u(g) o(h) u(ih) a(gf) e.</eu>(e.) (::)
+<eu>(hr) (g) <sp>+</sp>(,) (hr) (ir) (h) <sp>*</sp>(;) (hr) (gr) (f) </eu>(e) (::)
+
+4g
+<eu>E(h) u(h) o(h) u(h) a(h) e.</eu>(g.) (::)
+<eu>(hr) (g) <sp>+</sp>(,) (hr) (ir) (h) <sp>*</sp>(;) (hr) (hr) (h) </eu>(g) (::)
+
+4A
+<eu>E(i) u(h) o(i) u(j) a(h) e.</eu>(f.) (::)
+<eu>(ir) (h) <sp>+</sp>(,) (ir) (jr) (i) <sp>*</sp>(;) (ir) (jr) (h) </eu>(f) (::)
+
+4c
+<eu>E(i) u(i) o(i) u(i) a(i) e.</eu>(h.) (::)
+<eu>(ir) (h) <sp>+</sp>(,) (ir) (jr) (i) <sp>*</sp>(;) (ir) (ir) (i) </eu>(h) (::)
+
+5a
+<eu>E(h) u(h) o(i) u(g) a(h) e.</eu>(f.) (::)
+<eu>(hr) (f) <sp>+</sp>(,) (hr) (ir) (h) <sp>*</sp>(;) (hr) (gr) (h) </eu>(f) (::)
+
+6F
+<eu>E(h) u(h) o(f) u(gh) a(g) e.</eu>(f.) (::)
+<eu>(hr) (g) <sp>+</sp>(,) (hr) (gr) (h) (f) <sp>*</sp>(;) (hr) (gr) </eu>(f) (::)
+
+7a/c3
+<eu>E(i) u(i) o(j) u(i) a(h) e.</eu>(gf..) (::)
+<eu>(ir) (h) <sp>+</sp>(,) (ir) (kr) (j) <sp>*</sp>(;) (ir) (hr) </eu>(f) (::)
+
+7a/c2
+<eu>E(g) u(g) o(h) u(g) a(f) e.</eu>(ed..) (::)
+<eu>(gr) (f) <sp>+</sp>(,) (gr) (ir) (h) <sp>*</sp>(;) (gr) (fr) </eu>(d) (::)
+
+7b
+<eu>E(i) u(i) o(j) u(i) a(h) e.</eu>(g.) (::)
+<eu>(ir) (h) <sp>+</sp>(,) (ir) (kr) (j) <sp>*</sp>(;) (ir) (hr) </eu>(g) (::)
+
+7c
+<eu>E(i) u(i) o(j) u(i) a(h) e.</eu>(gh..) (::)
+<eu>(ir) (h) <sp>+</sp>(,) (ir) (kr) (j) <sp>*</sp>(;) (ir) (hr) (g) </eu>(h) (::)
+
+7c2
+<eu>E(i) u(i) o(j) u(i) a(h) e.</eu>(ih..) (::)
+<eu>(ir) (h) <sp>+</sp>(,) (ir) (kr) (j) <sp>*</sp>(;) (ir) (hr) (i) </eu>(h) (::)
+
+7d
+<eu>E(i) u(i) o(j) u(i) a(h) e.</eu>(gi..) (::)
+<eu>(ir) (h) <sp>+</sp>(,) (ir) (kr) (j) <sp>*</sp>(;) (ir) (hr) (g) </eu>(i) (::)
+
+8G/c4
+<eu>E(j) u(j) o(i) u(j) a(h) e.</eu>(g.) (::)
+<eu>(jr) (h) <sp>+</sp>(,) (jr) (kr) (j) <sp>*</sp>(;) (jr) (hr) </eu>(g) (::)
+
+8G/c3
+<eu>E(h) u(h) o(g) u(h) a(f) e.</eu>(e.) (::)
+<eu>(hr) (f) <sp>+</sp>(,) (hr) (ir) (h) <sp>*</sp>(;) (hr) (fr) </eu>(e) (::)
+
+8c/c4
+<eu>E(j) u(j) o(h) u(j) a(k) e.</eu>(j.) (::)
+<eu>(jr) (h) <sp>+</sp>(,) (jr) (kr) (j) <sp>*</sp>(;) (jr) (hr) </eu>(j) (::)
+
+8c/c3
+<eu>E(h) u(h) o(f) u(h) a(i) e.</eu>(h.) (::)
+<eu>(hr) (f) <sp>+</sp>(,) (hr) (ir) (h) <sp>*</sp>(;) (hr) (fr) </eu>(h) (::)
+
+Per.
+<eu>E(g) u(g) o(g) u(d) a(f) e.</eu>(ed..) (::)
+<eu>(hr) (g) <sp>+</sp>(,) (hr) (gr) (f) <sp>*</sp>(;) (gr) (er) (f) </eu>(d) (::)
