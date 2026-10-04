@@ -321,11 +321,7 @@ end
   \renewcommand{\numberbuffer}{}
   \gregorioscore{gabc/#1}
   \begin{multicols}{2}
-  \begin{obeycr}%
-  {%
-	\translation{\input{hymni_fr/#1}}%
-  }%
-  \end{obeycr}
+  \translation{\input{hymni_fr/#1}}
   \end{multicols}
   \resetinitialstyle
 }
@@ -379,6 +375,7 @@ end
 		{\item Gloire au Père, au F\frflex{i}ls, et au Saint-Esprit,\psstar{} pour les siècles des si\frflex{è}cles, Amen.}
 	\end{itemize}
 	\end{paracol}
+	\vspace{3mm plus 1mm minus 1mm}
 }
 
 \newcommand{\psalmus}[1]{
@@ -421,8 +418,8 @@ end
 \setlength{\parindent}{0mm}
 
 \newcommand{\translation}[1]{%
-	\emph{\small #1}\par%
-}
+	\emph{\small #1}%
+}%
 
 %% Styles des paragraphes spéciaux (capitulum oratio etc.)
 
@@ -462,17 +459,19 @@ end
 	%% #4 : en-tête droit
 	\begin{center}
 	\ifstrequal{#1}{1}{
-		\needspace{6\baselineskip}%
+		\needspace{8\baselineskip}%
 		{\Huge {\par\uppercase{#2}\par}}%
 		\thispagestyle{empty}%
 	}{}
 	\ifstrequal{#1}{2}{
-		\needspace{5\baselineskip}%
+		\needspace{7\baselineskip}%
+		\vspace{6mm plus 2mm minus 2mm}
 		{\LARGE {#2}}\par\nopagebreak%
+		\vspace{4mm plus 2mm minus 2mm}
 		\thispagestyle{empty}%
 	}{}
 	\ifstrequal{#1}{3}{
-		\needspace{4\baselineskip}%
+		\needspace{6\baselineskip}%
 		{\Large {#2}}\par\nopagebreak%
 	}{}
 	\end{center}
