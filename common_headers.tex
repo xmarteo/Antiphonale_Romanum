@@ -482,6 +482,47 @@ end
 	\ifstrequal{#3}{}{}{\setheaders{#3}{#4}}
 }
 
+%% Macro to print titles of feasts
+\newcommand{\festum}[4]{
+	%% #1 : rank of the day 1/2/3/4
+	%% #2 : hudelmaier code of the day (used for labels)
+	%% #3 : main title of the feast
+	%% #4 : day of the feast as printed
+	\begin{center}
+	\ifstrequal{#1}{1}{
+		\needspace{8\baselineskip}%
+		\phantomsection%
+		\label{#2}%
+		\vspace{4mm plus 2mm minus 2mm}%
+		{\textsc{#4}\par}%
+		{\Huge {\par\uppercase{#3}\par}}%
+		\vspace{2mm plus 2mm minus 2mm}%
+	}{}
+	\ifstrequal{#1}{2}{
+		\needspace{7\baselineskip}%
+		\phantomsection%
+		\label{#2}
+		\vspace{6mm plus 2mm minus 2mm}
+		{\textsc{#4}\par}%
+		{\LARGE {#3}}\par\nopagebreak%
+		\vspace{4mm plus 2mm minus 2mm}
+	}{}
+	\ifstrequal{#1}{3}{
+		\needspace{6\baselineskip}%
+		\phantomsection%
+		\label{#2}
+		{\textsc{#4}}{\Large {#3}}\par\nopagebreak%
+	}{}
+	\ifstrequal{#1}{4}{
+		\needspace{5\baselineskip}%
+		\phantomsection%
+		\label{#2}
+		{\textsc{#4}}{\large {#3}}\par\nopagebreak%
+	}{}
+	\end{center}
+	\phantomsection
+}
+
 %%%%%%%%%%%%%%% HEADER STYLES %%%%%%%%%%%%%%%
 
 \pagestyle{fancy}
