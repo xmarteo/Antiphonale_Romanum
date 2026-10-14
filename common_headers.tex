@@ -317,14 +317,18 @@ end
   \resetinitialstyle
 }
 
-\newcommand{\hymnus}[1]{
+\newcommand{\hymnus}[2][]{
   %% #1 : the hudelmaier code, which is also the name of the file,
   %%      and the label, and the name of the translation file
-  \renewcommand{\labelbuffer}{#1}
+  \renewcommand{\labelbuffer}{#2}
   \renewcommand{\numberbuffer}{}
-  \gregorioscore{gabc/#1}
+  \gregorioscore{gabc/#2}
   \begin{multicols}{2}
-  \translation{\input{hymni_fr/#1}}
+  \ifstrequal{#1}{}{%
+    \translation{\input{hymni_fr/#2}}%
+  }{%
+    \translation{\input{hymni_fr/#1}}%
+  }%
   \end{multicols}
   \resetinitialstyle
 }
