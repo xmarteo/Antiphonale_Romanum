@@ -19,7 +19,7 @@
 \indexsetup{level=\section*,toclevel=section,noclearpage,othercode=\footnotesize\thispagestyle{empty}}
 
 \makeindex[name=A,title=Antiennes, columns=2,columnseprule, options=-s dotted_mode.ist]
-\makeindex[name=H,title=Hymnes, columns=2,columnseprule, options=-s dotted_thinmode.ist]
+\makeindex[name=H,title=Hymnes, columns=2,columnseprule, options=-s dotted_mode.ist]
 \makeindex[name=R,title=Répons brefs, columns=2,columnseprule, options=-s dotted.ist]
 \makeindex[name=P,title=Psaumes, columns=2,columnseprule, options=-s dotted.ist]
 \makeindex[name=C,title=Cantiques, columns=2,columnseprule, options=-s dotted.ist]
@@ -175,22 +175,27 @@ headsep=3mm,
 
 %% This global variable contains the office-part of the piece currently being
 %% typeset, for indexing and annotation purposes.
-\newcommand{\officepartbuffer}{}
+\global\def\officepartbuffer{}
 %% This global variable contains the hudelmaier code, i.e. file name, i.e. label,
 %% of the piece currently being typeset.
-\newcommand{\labelbuffer}{}
+\global\def\labelbuffer{}
 %% This global variable contains the name of the index (A, H, R) relevant to the
 %% piece currently being typeset, if any indexing is needed for that piece.
-\newcommand{\indexnamebuffer}{}
+\global\def\indexnamebuffer{}
+%% This global variable contains the name of the piece currently being indexed
+\global\def\namebuffer{}
 %% This global variable contains the order number of the piece in the current hour
 %% for annotation purposes ("Ant. 1", "Ant. 2", etc.)
-\newcommand{\numberbuffer}{}
+\global\def\numberbuffer{}
 %% This global variable contains the mode+differentia of the last antiphon
 %% for the purposes of fetching the correct pointed psalm
-\newcommand{\nextpsalmmode}{}
+\global\def\nextpsalmmode{}
 %% This global variable contains the mode+differentia of the last piece
-%% for indexing and annotation purposes
-\newcommand{\indexedmode}{}
+%% for indexing purposes
+\global\def\indexedmode{}
+%% This global variable contains the mode+differentia of the last piece
+%% for annotation purposes
+\global\def\annotationmode{}
 
 %% Given an office-part header (from Gregorio header capture), 
 %% this section annotates the score according to the office-part, 
@@ -198,65 +203,71 @@ headsep=3mm,
 %% and stores into \indexnamebuffer the corresponding index, for later use.
 \newcommand{\abbrev}[4]{
   \IfSubStr{#1}{#2}{%
-	\renewcommand{\officepartbuffer}{#3}%
-	\renewcommand{\indexnamebuffer}{#4}%
+	\global\def\officepartbuffer{#3}%
+	\global\def\indexnamebuffer{#4}%
   }%
   {}%
 }
 \newcommand{\officepartannotation}[1]{%
-  \renewcommand{\officepartbuffer}{#1}%
-  \renewcommand{\indexnamebuffer}{}%
+  \global\def\officepartbuffer{#1}%
+  \global\def\indexnamebuffer{}%
   \abbrev{#1}{Antiphona}{Ant.}{A}%
-  \abbrev{#1}{Hymnus}{Hy.}{H}%
-  \abbrev{#1}{Responsorium breve}{R.Br.}{R}%
+  \abbrev{#1}{Hymnus}{Hymne}{H}%
+  \abbrev{#1}{Responsorium breve}{\rrtrans{}Br.}{R}%
   \abbrev{#1}{Toni Communes}{}{}%
-  \greannotation{\officepartbuffer \numberbuffer}%
+  \ifstrequal{B}\expandafter{\numberbuffer}{\greannotation{à Ben.}}{%
+	\ifdefstrequal{M}\expandafter{\numberbuffer}{\greannotation{à Magn.}}{%
+		\greannotation{\officepartbuffer{} \numberbuffer}%
+    }%
+  }%
 }
 
-%%%% This is deep magic required to define \grenewcommand, which is the same as
-%%%% \renewcommand but has global effects
-\makeatletter
-\def\gnewcommand{\g@star@or@long\new@command}
-\def\grenewcommand{\g@star@or@long\renew@command}
-\def\g@star@or@long#1{% 
-  \@ifstar{\let\l@ngrel@x\global#1}{\def\l@ngrel@x{\long\global}#1}}
-\makeatother
-%%%% end deep magic
-
-\newcommand{\changemode}[3]{%
+\newcommand{\changemode}[4]{%
   \ifstrequal{#1}{#2}{%
-	\global\def\nextpsalmmode{#3}
+	\global\def\nextpsalmmode{#3}%
+	\global\def\annotationmode{#2}%
+	\global\def\indexedmode{#4}%
   }%
   {}%
 }
 \newcommand{\modeannotation}[1]{
   \global\def\nextpsalmmode{#1}
   \global\def\indexedmode{#1}	
-  \changemode{#1}{1a}{1a}
-  \changemode{#1}{1a2}{1a2}
-  \changemode{#1}{1a3}{1a3}
-  \changemode{#1}{1f}{1f}
-  \changemode{#1}{1g}{1g}
-  \changemode{#1}{1g2}{1g2}
-  \changemode{#1}{1g3}{1g3}
-  \changemode{#1}{2D}{2}
-  \changemode{#1}{3a}{3a}
-  \changemode{#1}{3b}{3b}
-  \changemode{#1}{3g}{3g}
-  \changemode{#1}{3g2}{3g2}
-  \changemode{#1}{4c}{4-alt-c}
-  \changemode{#1}{4E}{4E}
-  \changemode{#1}{4g}{4g}
-  \changemode{#1}{5a}{5}
-  \changemode{#1}{6F}{6}
-  \changemode{#1}{7a}{7a}
-  \changemode{#1}{7b}{7b}
-  \changemode{#1}{7c}{7c}
-  \changemode{#1}{7c2}{7c2}
-  \changemode{#1}{8c}{8c}
-  \changemode{#1}{8G}{8G}
-  \changemode{#1}{Per.}{per}
-  \greannotation{\indexedmode}
+  \changemode{#1}{1a}{1a}{1}
+  \changemode{#1}{1a2}{1a2}{1}
+  \changemode{#1}{1a3}{1a3}{1}
+  \changemode{#1}{1f}{1f}{1}
+  \changemode{#1}{1g}{1g}{1}
+  \changemode{#1}{1g2}{1g2}{1}
+  \changemode{#1}{1g3}{1g3}{1}
+  \changemode{#1}{2D}{2}{2}
+  \changemode{#1}{3a}{3a}{3}
+  \changemode{#1}{3b}{3b}{3}
+  \changemode{#1}{3g}{3g}{3}
+  \changemode{#1}{3g2}{3g2}{3}
+  \changemode{#1}{4c}{4-alt-c}{4}
+  \changemode{#1}{4E}{4E}{4}
+  \changemode{#1}{4g}{4g}{4}
+  \changemode{#1}{5a}{5}{5}
+  \changemode{#1}{6F}{6}{6}
+  \changemode{#1}{7a}{7a}{7}
+  \changemode{#1}{7b}{7b}{7}
+  \changemode{#1}{7c}{7c}{7}
+  \changemode{#1}{7c2}{7c2}{7}
+  \changemode{#1}{8c}{8c}{8}
+  \changemode{#1}{8G}{8G}{8}
+  \changemode{#1}{Per.}{per}{P}
+  \greannotation{\annotationmode}
+  %% indexation
+  \ifstrequal{H}\expandafter{\indexnamebuffer}{%
+    \index[\indexnamebuffer]{{\namebuffer}@\indexedmode & \namebuffer}%
+  }{}%
+  \ifstrequal{A}\expandafter{\indexnamebuffer}{%
+    \index[\indexnamebuffer]{{\namebuffer}@\indexedmode & \namebuffer}%
+  }{}%
+  \ifstrequal{R}\expandafter{\indexnamebuffer}{%
+    \index[\indexnamebuffer]{\namebuffer}%
+  }{}%
 }
 
 %% Given a name header (from Gregorio header capture),
@@ -281,16 +292,7 @@ end
   \protected@edef\@currentlabelname{\directlua{delete_newline(\luastring{#1})}}%
   \phantomsection%
   \label{\labelbuffer}%
-  %% indexation
-  \ifdefstrequal{H}{\indexnamebuffer}{%
-    \index[\indexnamebuffer]{{#1}@\indexedmode & #1}%
-  }{}%
-  \ifdefstrequal{A}{\indexnamebuffer}{%
-    \index[\indexnamebuffer]{{#1}@\indexedmode & #1}%
-  }{}%
-  \ifdefstrequal{R}{\indexnamebuffer}{%
-    \index[\indexnamebuffer]{#1}%
-  }{}%
+  \global\def\namebuffer{#1}
 }
 \makeatother
 
@@ -310,11 +312,12 @@ end
   %% #1 : the hudelmaier code, which is also the name of the file, and the label.
   %% #2 : the number to be printed near "Ant." in a multi-antiphon hour
   %% #3 : the translation of the piece.
-  \renewcommand{\labelbuffer}{#1}
-  \renewcommand{\numberbuffer}{#2}
+  \global\def\labelbuffer{#1}
+  \global\def\numberbuffer{#2}
   \gregorioscore{gabc/#1}
   \translation{#3}
   \resetinitialstyle
+  \par
 }
 
 \newcommand{\hymnus}[2][]{
